@@ -1,9 +1,12 @@
+namespace AOC.Solutions;
+
 using System.Collections.Generic;
+using System.Linq;
 using System;
 
 using static System.StringSplitOptions;
 
-class Day01 {
+class Day01 : Day {
   private List<long> _leftList = new List<long>();
   private List<long> _rightList = new List<long>();
 
@@ -17,7 +20,7 @@ class Day01 {
     _rightList.Add(right);
   }
 
-  public long Solve() {
+  public long SolvePartOne() {
     _leftList.Sort();
     _rightList.Sort();
 
@@ -28,5 +31,14 @@ class Day01 {
     }
 
     return totalDistance;
+  }
+
+  public long SolvePartTwo() {
+    long similarity = 0;
+    foreach (var value in _leftList) {
+      long occurrences = _rightList.Where(e => value == e).Count();
+      similarity += value * occurrences;
+    }
+    return similarity;
   }
 }
